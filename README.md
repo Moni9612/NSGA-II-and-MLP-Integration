@@ -2,6 +2,10 @@
 
 MLP-assisted NSGA-II framework for geometric optimization of the HCA adaptive finger for cluttered waste sorting.
 
+<p align="center">
+  <img src="architecture.jpeg" alt="MLP-assisted NSGA-II optimization framework" width="100%">
+</p>
+
 ## Overview
 
 This repository contains the implementation of a **Multi-Layer Perceptron (MLP)-assisted NSGA-II optimization framework** developed for the geometric optimization of an adaptive robotic finger used in the **Hybrid Compliance Activation (HCA) mechanism for cluttered waste sorting**.
