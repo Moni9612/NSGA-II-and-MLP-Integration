@@ -31,4 +31,10 @@ The finite element simulation dataset is loaded into the Google Colab environmen
 
 ```python
 # Data loading code
-# Add code here
+import pandas as pd
+
+df = pd.read_csv("MLP_NSGA_Dataset.csv")
+
+print("Original shape:", df.shape)
+display(df.head())
+
