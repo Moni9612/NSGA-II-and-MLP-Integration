@@ -19,18 +19,12 @@ The implementation consists of two main components:
 
 ---
 
-# MLP Model
+# MLP Model and Usage
 
-The **Multi-Layer Perceptron (MLP)** model was developed and trained using **Google Colab**. The model learns the relationship between the finger design parameters, contact conditions, and corresponding mechanical responses obtained from finite element simulations.
+The **Multi-Layer Perceptron (MLP)** model was developed and trained using **Google Colab** with data obtained from finite element simulations (COMSOL). The model learns the relationship between the finger design parameters, contact conditions, and corresponding mechanical responses.
 
-The complete MLP development workflow consists of the following stages.
-# Usage
+The MLP development workflow is implemented using the three Python scripts provided in this repository. These scripts are designed to be executed sequentially in separate cells within the same Google Colab session, covering data preparation and model creation, model training, and model evaluation and saving.
 
-The MLP development workflow is designed to be executed in **Google Colab** using the three Python scripts provided in this repository. The scripts should be executed sequentially in separate Colab cells, as described below.
-
-## 1. Create a Google Colab Environment
-
-Create a new Google Colab notebook and configure the runtime required for MLP training. The three Python scripts in this repository are intended to be used sequentially within the same Colab session.
 
 The recommended execution order is:
 
