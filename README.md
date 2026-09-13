@@ -30,7 +30,6 @@ The complete MLP development workflow consists of the following stages.
 The finite element simulation dataset is loaded into the Google Colab environment for initial inspection and subsequent processing.
 
 ```python
-# Data loading code
 import pandas as pd
 
 df = pd.read_csv("MLP_NSGA_Dataset.csv")
@@ -38,3 +37,4 @@ df = pd.read_csv("MLP_NSGA_Dataset.csv")
 print("Original shape:", df.shape)
 display(df.head())
 
+## Data Preprocessing and Cleaning
