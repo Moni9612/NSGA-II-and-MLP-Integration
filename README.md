@@ -23,31 +23,30 @@ The implementation consists of two main components:
 
 The **Multi-Layer Perceptron (MLP)** model was developed and trained using **Google Colab** with data obtained from finite element simulations (COMSOL). The model learns the relationship between the finger design parameters, contact conditions, and corresponding mechanical responses.
 
-The MLP development workflow is implemented using the three Python scripts provided in this repository. These scripts are designed to be executed sequentially in separate cells within the same Google Colab session, covering data preparation and model creation, model training, and model evaluation and saving.
+The MLP workflow is implemented using the three Python scripts provided in this repository. These scripts are executed sequentially within the same Google Colab session. Model development is iterative, allowing the MLP configuration to be adjusted, retrained, and re-evaluated until satisfactory predictive performance is achieved.
 
+```mermaid
+flowchart TD
+    A["Cell 1<br/>Data_preprocessing_and_MLP_creation.py"]
+    B["Cell 2<br/>MLP_training.py"]
+    C["Cell 3<br/>MLP_evaluation_model_saving.py"]
+    D{"Performance satisfactory?"}
+    E["Adjust MLP parameters"]
+    F["Save final model<br/>and scalers"]
+    G["MLP–NSGA-II integration"]
 
-The recommended execution order is:
+    A --> B
+    B --> C
+    C --> D
 
-```text
-Cell 1: Data_preprocessing_and_MLP_creation.py
-                         ↓
-Cell 2: MLP_training.py
-                         ↓
-Cell 3: MLP_evaluation_model_saving.py
-                         ↓
-                  Model Evaluation
-                         ↓
-              ┌── Satisfactory? ──┐
-              │                   │
-             No                  Yes
-              │                   │
-              ↓                   ↓
-      Adjust MLP Parameters    Save Model
-              │                & Scalers
-              └────→ Retrain
+    D -- No --> E
+    E --> A
+
+    D -- Yes --> F
+    F --> G
 ```
 
-## 2. Data Preprocessing and MLP Creation
+## 1. Data Preprocessing and MLP Creation
 
 Copy the contents of [`Data_preprocessing_and_MLP_creation.py`](Data_preprocessing_and_MLP_creation.py) into the **first cell** of the Google Colab notebook and execute it.
 
@@ -68,7 +67,7 @@ This script performs the initial data preparation and model setup, including:
 
 The MLP configuration parameters are defined at this stage. These parameters can be modified during model tuning, including the network architecture, number and size of hidden layers, learning rate, and other model-related hyperparameters.
 
-## 3. MLP Training
+## 2. MLP Training
 
 Copy the contents of [`MLP_training.py`](MLP_training.py) into the **second cell** and execute it after completing the data preparation and model creation stage.
 
@@ -92,7 +91,7 @@ After modifying the parameters, recreate the model and repeat the training proce
 
 > **Note:** Re-executing the model creation step initializes a new MLP. Therefore, the model should be retrained after modifying its architecture or relevant configuration parameters.
 
-## 4. Model Evaluation and Saving
+## 3. Model Evaluation and Saving
 
 Copy the contents of [`MLP_evaluation_model_saving.py`](MLP_evaluation_model_saving.py) into the **third cell** and execute it after each training cycle.
 
@@ -104,59 +103,9 @@ Copy the contents of [`MLP_evaluation_model_saving.py`](MLP_evaluation_model_sav
 
 This script is used to evaluate the predictive performance of the trained MLP and visualize its current performance. The evaluation results can then be used to determine whether further hyperparameter tuning and retraining are required.
 
-The recommended iterative workflow is:
-
-```text
-Configure MLP
-     ↓
-Train MLP
-     ↓
-Evaluate Model
-     ↓
-Inspect Performance
-     ↓
-Adjust Hyperparameters (if required)
-     ↓
-Recreate and Retrain MLP
-     ↓
-Re-evaluate
-```
-
-Repeat this process until satisfactory predictive performance is achieved.
+Repeat the training and evaluation process, as illustrated in the workflow above, until satisfactory predictive performance is achieved.
 
 Once the final model configuration has been selected, the same script can be used to save the **trained MLP model and associated data scalers**.
 
-These saved components allow the trained surrogate model to be reloaded without retraining and subsequently used during the **MLP–NSGA-II integration and optimization stage**.
+These saved components allow the trained model to be reloaded without retraining and subsequently used during the **MLP–NSGA-II integration and optimization stage**.
 
-## 5. Recommended Colab Workflow
-
-The complete Google Colab notebook can therefore be organized into three primary cells:
-
-| Cell | Script | Purpose |
-| --- | --- | --- |
-| **Cell 1** | [`Data_preprocessing_and_MLP_creation.py`](Data_preprocessing_and_MLP_creation.py) | Data loading, preprocessing, dataset splitting, scaling, and MLP creation |
-| **Cell 2** | [`MLP_training.py`](MLP_training.py) | MLP training using the prepared training and validation datasets |
-| **Cell 3** | [`MLP_evaluation_model_saving.py`](MLP_evaluation_model_saving.py) | Model evaluation, performance visualization, and saving the final trained model and scalers |
-
-### Model Development Cycle
-
-During model development, execute the cells in the following sequence:
-
-```text
-Cell 1 → Cell 2 → Cell 3
-                  │
-                  ↓
-           Evaluate Results
-                  │
-          ┌───────┴───────┐
-          │               │
-    Tune Required     Model Finalized
-          │               │
-          ↓               ↓
-   Modify Cell 1      Save Model
-          │           and Scalers
-          ↓
-   Cell 1 → Cell 2 → Cell 3
-```
-
-Once the model achieves satisfactory performance, save the final trained model and scalers using Cell 3. The saved model can then be loaded during the subsequent **NSGA-II integration** stage for surrogate-based evaluation of candidate finger designs.
