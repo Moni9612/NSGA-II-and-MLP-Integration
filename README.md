@@ -27,22 +27,20 @@ The MLP workflow is implemented using the three Python scripts provided in this 
 
 ```mermaid
 flowchart TD
-    A["Cell 1<br/>Data_preprocessing_and_MLP_creation.py"]
-    B["Cell 2<br/>MLP_training.py"]
-    C["Cell 3<br/>MLP_evaluation_model_saving.py"]
+    A["Cell 1: Data_preprocessing_and_MLP_creation.py"]
+    B["Cell 2: MLP_training.py"]
+    C["Cell 3: MLP_evaluation_model_saving.py"]
     D{"Performance satisfactory?"}
     E["Adjust MLP parameters"]
-    F["Save final model<br/>and scalers"]
+    F["Save final model and scalers"]
     G["MLP–NSGA-II integration"]
 
     A --> B
     B --> C
     C --> D
-
-    D -- No --> E
+    D -->|No| E
     E --> A
-
-    D -- Yes --> F
+    D -->|Yes| F
     F --> G
 ```
 
@@ -147,31 +145,29 @@ The complete workflow is illustrated below.
 
 ```mermaid
 flowchart TD
-    S["Setup Cell<br/>Install pymoo"]
+    S["Setup: Install pymoo"]
 
-    A["Cell 1<br/>NSGAII_MLP_initialization_and_iteration1.py"]
+    A["Cell 1: NSGAII_MLP_initialization_and_iteration1.py"]
 
-    B["Cell 2<br/>Convergence_history_initialization.py"]
+    B["Cell 2: Convergence_history_initialization.py"]
 
-    C["Cell 3<br/>NSGAII_convergence_tracking.py"]
+    C["Cell 3: NSGAII_convergence_tracking.py"]
 
     D{"Converged?"}
 
-    E["Cell 4<br/>NSGAII_MLP_iteration.py<br/>Increment iteration number"]
+    E["Cell 4: NSGAII_MLP_iteration.py<br/>Increment iteration number"]
 
-    F["Cell 5<br/>Pareto_front_and_optimal_design_selection.py"]
+    F["Cell 5: Pareto_front_and_optimal_design_selection.py"]
 
-    G["Top 5 Highest-Ranked<br/>Pareto Designs"]
+    G["Top 5 Highest-Ranked Pareto Designs"]
 
     S --> A
     A --> B
     B --> C
     C --> D
-
-    D -- No --> E
+    D -->|No| E
     E --> C
-
-    D -- Yes --> F
+    D -->|Yes| F
     F --> G
 ```
 
