@@ -403,13 +403,7 @@ are then min-max normalized across the final constrained Pareto set.
 
 Because all three objectives are minimized, the normalized utopia point is defined as:
 
-$$
-\mathbf{f}^{*}
-=
-\begin{bmatrix}
-0 & 0 & 0
-\end{bmatrix}.
-$$
+$$\mathbf{f}^{*} = [0,\;0,\;0]$$
 
 For each Pareto-optimal design, the Euclidean distance from its normalized objective vector to the utopia point is calculated.
 
