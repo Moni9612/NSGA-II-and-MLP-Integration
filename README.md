@@ -25,24 +25,9 @@ The **Multi-Layer Perceptron (MLP)** model was developed and trained using **Goo
 
 The MLP workflow is implemented using the three Python scripts provided in this repository. These scripts are executed sequentially within the same Google Colab session. Model development is iterative, allowing the MLP configuration to be adjusted, retrained, and re-evaluated until satisfactory predictive performance is achieved.
 
-```mermaid
-flowchart TD
-    A["Cell 1: Data_preprocessing_and_MLP_creation.py"]
-    B["Cell 2: MLP_training.py"]
-    C["Cell 3: MLP_evaluation_model_saving.py"]
-    D{"Performance satisfactory?"}
-    E["Adjust MLP parameters"]
-    F["Save final model and scalers"]
-    G["MLP–NSGA-II integration"]
-
-    A --> B
-    B --> C
-    C --> D
-    D -->|No| E
-    E --> A
-    D -->|Yes| F
-    F --> G
-```
+<p align="center">
+  <img src="MLP.png" alt="MLP creation and training" width="100%">
+</p>
 
 ## 1. Data Preprocessing and MLP Creation
 
@@ -143,33 +128,9 @@ This command only needs to be executed once at the beginning of the Colab sessio
 
 The complete workflow is illustrated below.
 
-```mermaid
-flowchart TD
-    S["Setup: Install pymoo"]
-
-    A["Cell 1: NSGAII_MLP_initialization_and_iteration1.py"]
-
-    B["Cell 2: Convergence_history_initialization.py"]
-
-    C["Cell 3: NSGAII_convergence_tracking.py"]
-
-    D{"Converged?"}
-
-    E["Cell 4: NSGAII_MLP_iteration.py<br/>Increment iteration number"]
-
-    F["Cell 5: Pareto_front_and_optimal_design_selection.py"]
-
-    G["Top 5 Highest-Ranked Pareto Designs"]
-
-    S --> A
-    A --> B
-    B --> C
-    C --> D
-    D -->|No| E
-    E --> C
-    D -->|Yes| F
-    F --> G
-```
+<p align="center">
+  <img src="NSGA-II.png" alt="NSGA-II-based multi-objective optimization framework" width="100%">
+</p>
 
 ## 1. NSGA-II and MLP Initialization — Iteration 1
 
