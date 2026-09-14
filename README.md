@@ -111,7 +111,7 @@ These saved components allow the trained model to be reloaded without retraining
 
 # NSGA-II and MLP Integration
 
-The trained MLP surrogate is integrated with a constrained **NSGA-II-based multi-objective optimization framework** to optimize the adaptive Fin-Ray finger geometry. This stage is implemented in a separate **Google Colab** environment.
+The trained MLP is integrated with a constrained **NSGA-II-based multi-objective optimization framework** to optimize the adaptive Fin-Ray finger geometry. This stage is implemented in a separate **Google Colab** environment.
 
 The optimization considers three objectives:
 
@@ -127,7 +127,7 @@ $$
 
 where $\mu_F$ represents the mean predicted normal contact force across the considered operating conditions.
 
-The trained MLP and associated scalers generated during the previous stage are loaded and used as surrogate models to evaluate newly generated candidate geometries, avoiding repeated finite element simulations during the optimization process.
+The trained MLP and associated scalers generated during the previous stage are loaded and used to evaluate newly generated candidate geometries, avoiding repeated finite element simulations during the optimization process.
 
 ## Environment Setup
 
@@ -205,7 +205,7 @@ The script performs the following main operations:
 - Adds the newly evaluated designs to the cumulative population
 - Updates the constrained Pareto front
 
-Each candidate geometry is evaluated under all considered operating conditions using the trained MLP surrogate.
+Each candidate geometry is evaluated under all considered operating conditions using the trained MLP.
 
 The resulting displacement and force predictions are aggregated to calculate the three objectives:
 
