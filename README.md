@@ -105,10 +105,10 @@ The optimization considers three objectives:
 subject to the force constraint:
 
 $$
-\mu_F \geq 15~\text{N}
+\mu_F \geq 10~\text{N}
 $$
 
-where $\mu_F$ represents the mean predicted normal contact force across the considered operating conditions.
+where $\mu_F$ represents the required minimum mean contact force across the considered operating conditions.
 
 The trained MLP and associated scalers generated during the previous stage are loaded and used to evaluate newly generated candidate geometries, avoiding repeated finite element simulations during the optimization process.
 
@@ -170,10 +170,10 @@ $$
 CV_D,\qquad CV_F,\qquad ZDI
 $$
 
-while the predicted mean contact force is used to enforce:
+while the required minimum mean contact force is used to enforce:
 
 $$
-\mu_F \geq 15~\text{N}.
+\mu_F \geq 10~\text{N}.
 $$
 
 Only designs satisfying this force requirement are considered feasible during constrained non-dominated sorting.
@@ -279,7 +279,7 @@ During each iteration, the script:
 - Predicts the response of each candidate under all operating conditions
 - Calculates $CV_D$, $CV_F$, and $ZDI$
 - Calculates the mean predicted contact force
-- Checks the $\mu_F \geq 15$ N feasibility constraint
+- Checks the $\mu_F \geq 10$ N feasibility constraint
 - Records feasible and infeasible candidates
 - Appends the newly evaluated designs to the cumulative population
 - Recalculates the constrained Pareto front
@@ -287,42 +287,6 @@ During each iteration, the script:
 After executing Cell 4, return to **Cell 3** and run the convergence-tracking code again.
 
 If convergence has not yet been reached, increase only the iteration number by one before running Cell 4 again.
-
-For example:
-
-```python
-iteration_number = 3
-```
-
-followed by:
-
-```python
-iteration_number = 4
-```
-
-and so forth.
-
-The iterative optimization therefore follows:
-
-```text
-Run NSGA-II + MLP iteration
-        ↓
-Update constrained Pareto front
-        ↓
-Run convergence tracking
-        ↓
-Check hypervolume convergence
-        ↓
-Converged?
-   ↓           ↓
-  No          Yes
-   ↓           ↓
-Increment     Final Pareto
-iteration     analysis
-number
-   ↓
-Run next iteration
-```
 
 Continue alternating between **Cell 4** and **Cell 3** until the Pareto-front hypervolume indicates convergence.
 
@@ -347,7 +311,7 @@ This script performs the final analysis of the converged constrained Pareto fron
 First, the final Pareto population is verified to ensure that all Pareto-optimal designs satisfy:
 
 $$
-\mu_F \geq 15~\text{N}.
+\mu_F \geq 10~\text{N}.
 $$
 
 The three minimized objectives,
@@ -391,12 +355,6 @@ B → Rank 2
 C → Rank 3
 D → Rank 4
 E → Rank 5
-```
-
-The resulting Pareto-front figure is saved as:
-
-```text
-Final_Constrained_Pareto_Top5_Utopia_Arrows_A_to_E.png
 ```
 
 These five highest-ranked Pareto-optimal finger geometries can then be carried forward for subsequent simulation and experimental validation.
