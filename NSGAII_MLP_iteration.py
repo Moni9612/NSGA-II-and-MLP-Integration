@@ -5,7 +5,7 @@
 # Change ONLY iteration_number before each run
 #
 # Constraint:
-# Mean_Fn >= 15 N
+# Mean_Fn >= 10 N
 # ============================================================
 
 iteration_number = 2
@@ -318,7 +318,7 @@ if len(pareto_df) > 0:
     )
 
     print(
-        "All Pareto designs satisfy Mean Fn >= 15 N:",
+        "All Pareto designs satisfy Mean Fn >= 10 N:",
         (
             pareto_df[
                 "Mean_Fn"
