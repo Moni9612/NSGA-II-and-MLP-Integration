@@ -7,9 +7,9 @@
 #   3. Minimize ZDI
 #
 # Constraint:
-#   Mean normal force >= 15 N
+#   Mean normal force >= 10 N
 #
-#   μ_F >= 15 N
+#   μ_F >= 10 N
 #
 # ============================================================
 
@@ -340,14 +340,14 @@ print(
 )
 
 print(
-    "Feasible designs (Mean Fn >= 15 N):",
+    "Feasible designs (Mean Fn >= 10 N):",
     cumulative_df[
         "Feasible"
     ].sum()
 )
 
 print(
-    "Infeasible designs (Mean Fn < 15 N):",
+    "Infeasible designs (Mean Fn < 10 N):",
     (
         ~cumulative_df[
             "Feasible"
