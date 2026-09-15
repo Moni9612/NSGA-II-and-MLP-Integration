@@ -1,29 +1,31 @@
-# NSGA-II-and-MLP-Integration
+# NSGA-II and MLP Integration
 
-MLP-assisted NSGA-II framework for geometric optimization of the HCA adaptive finger for cluttered waste sorting.
+An **MLP-assisted NSGA-II framework for geometric optimization of the HCA adaptive finger** for cluttered waste sorting.
 
 <p align="center">
   <img src="architecture.jpeg" alt="MLP-assisted NSGA-II optimization framework" width="100%">
 </p>
 
+---
+
 ## Overview
 
-This repository contains the implementation of a **Multi-Layer Perceptron (MLP)-assisted NSGA-II optimization framework** developed for the geometric optimization of an adaptive robotic finger used in the **Hybrid Compliance Activation (HCA) mechanism for cluttered waste sorting**.
+The framework integrates a trained **Multi-Layer Perceptron (MLP)** model with the **Non-dominated Sorting Genetic Algorithm II (NSGA-II)** for geometric optimization of an adaptive robotic finger used in the **Hybrid Compliance Activation (HCA) mechanism for cluttered waste sorting**.
 
-The framework integrates a trained MLP model with the **Non-dominated Sorting Genetic Algorithm II (NSGA-II)** to efficiently explore the finger design space while reducing the computational cost associated with repeated finite element simulations.
+The trained MLP enables efficient exploration of the finger design space while reducing the computational cost associated with repeated finite-element simulations.
 
-The implementation consists of two main components:
+The implementation comprises two main components:
 
-1. **MLP Model** – developed and trained using finite element simulation data.
-2. **NSGA-II Multi-Objective Optimization** – integrates the trained MLP model with NSGA-II for efficient exploration of the finger design space.
+1. **MLP Model** – developed and trained using finite-element simulation data.
+2. **NSGA-II Multi-Objective Optimization** – integrates the trained MLP with NSGA-II for efficient exploration of the finger design space.
 
 ---
 
 # MLP Model and Usage
 
-The **Multi-Layer Perceptron (MLP)** model was developed and trained using **Google Colab** with data obtained from finite element simulations (COMSOL). The model learns the relationship between the finger design parameters, contact conditions, and corresponding mechanical responses.
+The **Multi-Layer Perceptron (MLP)** model is developed and trained in **Google Colab** using data obtained from finite-element simulations in COMSOL. The model learns the relationship between the finger design parameters, contact conditions, and corresponding mechanical responses.
 
-The MLP workflow is implemented using the three Python scripts provided in this repository. These scripts are executed sequentially within the same Google Colab session. Model development is iterative, allowing the MLP configuration to be adjusted, retrained, and re-evaluated until satisfactory predictive performance is achieved.
+The MLP workflow consists of three Python scripts executed sequentially within the same Google Colab session. Model development follows an iterative procedure, allowing the MLP configuration to be adjusted, retrained, and re-evaluated until satisfactory predictive performance is achieved.
 
 <p align="center">
   <img src="MLP.png" alt="MLP creation and training" width="100%">
@@ -33,7 +35,7 @@ The MLP workflow is implemented using the three Python scripts provided in this 
 
 Copy the contents of [`Data_preprocessing_and_MLP_creation.py`](Data_preprocessing_and_MLP_creation.py) into the **first cell** of the Google Colab notebook and execute it.
 
-This script performs the initial data preparation and model setup, including:
+The initial stage performs data preparation and model setup, including:
 
 - Uploading and loading the simulation dataset
 - Defining the MLP input features and output targets
@@ -48,11 +50,13 @@ This script performs the initial data preparation and model setup, including:
 # Data_preprocessing_and_MLP_creation.py
 ```
 
-The MLP configuration parameters are defined at this stage. These parameters can be modified during model tuning, including the network architecture, number and size of hidden layers, learning rate, and other model-related hyperparameters.
+The MLP configuration parameters are defined at this stage and can be modified during model tuning, including the network architecture, number and size of hidden layers, learning rate, and other model-related hyperparameters.
+
+---
 
 ## 2. MLP Training
 
-Copy the contents of [`MLP_training.py`](MLP_training.py) into the **second cell** and execute it after completing the data preparation and model creation stage.
+Copy the contents of [`MLP_training.py`](MLP_training.py) into the **second cell** and execute it after completing the data-preprocessing and model-creation stage.
 
 ```python
 # Cell 2
@@ -60,9 +64,9 @@ Copy the contents of [`MLP_training.py`](MLP_training.py) into the **second cell
 # MLP_training.py
 ```
 
-This script trains the MLP using the training and validation datasets prepared in the previous cell.
+The MLP is trained using the training and validation datasets prepared in the previous cell.
 
-Model development should be performed iteratively. After each training cycle, evaluate the model using the third cell. If further improvement is required, return to the first cell and adjust the relevant model or training parameters, such as:
+Model development is performed iteratively. After each training cycle, evaluate the model using the third cell. If further improvement is required, return to the first cell and adjust the relevant model or training parameters, such as:
 
 - Number of hidden layers
 - Number of neurons per layer
@@ -72,7 +76,9 @@ Model development should be performed iteratively. After each training cycle, ev
 
 After modifying the parameters, recreate the model and repeat the training process.
 
-> **Note:** Re-executing the model creation step initializes a new MLP. Therefore, the model should be retrained after modifying its architecture or relevant configuration parameters.
+> **Note:** Re-executing the model-creation step initializes a new MLP. The model should therefore be retrained after modifying its architecture or relevant configuration parameters.
+
+---
 
 ## 3. Model Evaluation and Saving
 
@@ -84,13 +90,15 @@ Copy the contents of [`MLP_evaluation_model_saving.py`](MLP_evaluation_model_sav
 # MLP_evaluation_model_saving.py
 ```
 
-This script is used to evaluate the predictive performance of the trained MLP and visualize its current performance. The evaluation results can then be used to determine whether further hyperparameter tuning and retraining are required.
+The trained MLP is evaluated to assess and visualize its predictive performance. The resulting evaluation metrics can be used to determine whether further hyperparameter tuning and retraining are required.
 
 Repeat the training and evaluation process, as illustrated in the workflow above, until satisfactory predictive performance is achieved.
 
 Once the final model configuration has been selected, the same script can be used to save the **trained MLP model and associated data scalers**.
 
-These saved components allow the trained model to be reloaded without retraining and subsequently used during the **MLP–NSGA-II integration and optimization stage**.
+The saved model and scalers can subsequently be reloaded without retraining and used during the **MLP–NSGA-II integration and optimization stage**.
+
+---
 
 # NSGA-II and MLP Integration
 
@@ -110,27 +118,31 @@ $$
 
 where $\mu_F$ represents the required minimum mean contact force across the considered operating conditions.
 
-The trained MLP and associated scalers generated during the previous stage are loaded and used to evaluate newly generated candidate geometries, avoiding repeated finite element simulations during the optimization process.
+The trained MLP and associated scalers generated during the previous stage are loaded and used to evaluate newly generated candidate geometries, avoiding repeated finite-element simulations during the optimization process.
+
+---
 
 ## Environment Setup
 
 Create a new **Google Colab** notebook for the NSGA-II optimization stage.
 
-In the **first starting cell**, install `pymoo` using:
+In the initial setup cell, install `pymoo` using:
 
 ```python
 !pip install pymoo
 ```
 
-This command only needs to be executed once at the beginning of the Colab session to set up the required multi-objective optimization environment.
+This command only needs to be executed once at the beginning of the Colab session to establish the required multi-objective optimization environment.
 
-> **Note:** This setup cell is not included as a Python file in the repository. After installing `pymoo`, the remaining five cells use the Python scripts provided in this repository.
+> **Note:** The setup cell is not included as a Python file. After installing `pymoo`, the remaining five cells use the Python scripts provided with the framework.
 
 The complete workflow is illustrated below.
 
 <p align="center">
   <img src="NSGA-II.png" alt="NSGA-II-based multi-objective optimization framework" width="100%">
 </p>
+
+---
 
 ## 1. NSGA-II and MLP Initialization — Iteration 1
 
@@ -142,11 +154,11 @@ Copy the contents of [`NSGAII_MLP_initialization_and_iteration1.py`](NSGAII_MLP_
 # NSGAII_MLP_initialization_and_iteration1.py
 ```
 
-This script initializes the complete constrained NSGA-II + MLP optimization framework and performs **Iteration 1**.
+Cell 1 initializes the complete constrained NSGA-II + MLP optimization framework and automatically performs **Iteration 1**.
 
-During execution, the trained MLP model and its associated input and output scalers are loaded into the Colab environment. The initial finite-element dataset is also loaded and used to construct the starting design population.
+During initialization, the trained MLP model and its associated input and output scalers are loaded into the Colab environment. The initial finite-element dataset is also loaded and used to construct the starting design population.
 
-The script performs the following main operations:
+The initialization stage performs the following operations:
 
 - Loads the trained MLP model and associated scalers
 - Loads the finite-element simulation dataset
@@ -178,7 +190,7 @@ $$
 
 Only designs satisfying this force requirement are considered feasible during constrained non-dominated sorting.
 
-> **Note:** This script performs **Iteration 1** automatically.
+> **Note:** Cell 1 automatically performs **Iteration 1**.
 
 ---
 
@@ -192,7 +204,7 @@ After completing Iteration 1, copy the contents of [`Convergence_history_initial
 # Convergence_history_initialization.py
 ```
 
-This script initializes an empty convergence-history table before convergence tracking begins.
+Cell 2 initializes the convergence-history table before convergence tracking begins.
 
 The following information is recorded during the optimization:
 
@@ -218,13 +230,13 @@ Copy the contents of [`NSGAII_convergence_tracking.py`](NSGAII_convergence_track
 # NSGAII_convergence_tracking.py
 ```
 
-This script evaluates the performance of the current constrained Pareto front and tracks the progression of the optimization.
+The convergence-tracking stage evaluates the current constrained Pareto front and records the progression of the optimization.
 
-The primary convergence indicator is the **hypervolume** of the constrained Pareto front.
+The primary convergence indicator is the **hypervolume of the constrained Pareto front**.
 
-During the first execution, a fixed hypervolume reference point is established based on the evaluated objective space. The same reference point is retained throughout all subsequent iterations so that the hypervolume values remain directly comparable.
+During the first execution, a fixed hypervolume reference point is established based on the evaluated objective space. The same reference point is retained throughout all subsequent iterations to ensure that the hypervolume values remain directly comparable.
 
-For each iteration, the script records:
+For each iteration, the following information is recorded:
 
 - Current iteration number
 - Cumulative number of evaluated designs
@@ -264,29 +276,29 @@ Copy the contents of [`NSGAII_MLP_iteration.py`](NSGAII_MLP_iteration.py) into *
 # NSGAII_MLP_iteration.py
 ```
 
-The first execution of this cell should begin with:
+For the first execution, set:
 
 ```python
 iteration_number = 2
 ```
 
-This script performs one additional constrained NSGA-II + MLP optimization iteration.
+Each execution of Cell 4 performs one additional constrained NSGA-II + MLP optimization iteration.
 
-During each iteration, the script:
+During each iteration:
 
-- Generates 20 new candidate geometries
-- Evaluates each candidate using the trained MLP
-- Predicts the response of each candidate under all operating conditions
-- Calculates $CV_D$, $CV_F$, and $ZDI$
-- Calculates the mean predicted contact force
-- Checks the $\mu_F \geq 10$ N feasibility constraint
-- Records feasible and infeasible candidates
-- Appends the newly evaluated designs to the cumulative population
-- Recalculates the constrained Pareto front
+- 20 new candidate geometries are generated
+- Each candidate is evaluated using the trained MLP
+- Candidate responses are predicted across all operating conditions
+- $CV_D$, $CV_F$, and $ZDI$ are calculated
+- Mean predicted contact force is calculated
+- The $\mu_F \geq 10$ N feasibility constraint is evaluated
+- Feasible and infeasible candidates are recorded
+- Newly evaluated designs are appended to the cumulative population
+- The constrained Pareto front is recalculated
 
 After executing Cell 4, return to **Cell 3** and run the convergence-tracking code again.
 
-If convergence has not yet been reached, increase only the iteration number by one before running Cell 4 again.
+If convergence has not yet been reached, increase only the iteration number by one before executing Cell 4 again.
 
 Continue alternating between **Cell 4** and **Cell 3** until the Pareto-front hypervolume indicates convergence.
 
@@ -306,7 +318,7 @@ Once convergence has been reached, copy the contents of [`Pareto_front_and_optim
 # Pareto_front_and_optimal_design_selection.py
 ```
 
-This script performs the final analysis of the converged constrained Pareto front.
+The final stage analyzes the converged constrained Pareto front and identifies the highest-ranked candidate designs.
 
 First, the final Pareto population is verified to ensure that all Pareto-optimal designs satisfy:
 
@@ -324,15 +336,17 @@ are then min-max normalized across the final constrained Pareto set.
 
 Because all three objectives are minimized, the normalized utopia point is defined as:
 
-$$\mathbf{f}^{*} = [0,\;0,\;0]$$
+$$
+\mathbf{f}^{*} = [0,\;0,\;0].
+$$
 
 For each Pareto-optimal design, the Euclidean distance from its normalized objective vector to the utopia point is calculated.
 
-The designs are then ranked in ascending order of their distance to the utopia point, where a smaller distance represents a more balanced trade-off among the three optimization objectives.
+The designs are ranked in ascending order of their distance to the utopia point, where a smaller distance represents a more balanced trade-off among the three optimization objectives.
 
-The **five Pareto designs with the smallest utopia distances** are extracted as the five highest-ranked candidate designs.
+The **five Pareto designs with the smallest utopia distances** are selected as the five highest-ranked candidate designs.
 
-For each of these five designs, the script reports:
+For each of these five designs, the following information is reported:
 
 - Finger geometry
 - $CV_D$
@@ -357,5 +371,4 @@ D → Rank 4
 E → Rank 5
 ```
 
-These five highest-ranked Pareto-optimal finger geometries can then be carried forward for subsequent simulation and experimental validation.
-
+These five highest-ranked Pareto-optimal finger geometries can subsequently be carried forward for simulation and experimental validation.
