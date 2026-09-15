@@ -7,7 +7,7 @@
 #   Minimize ZDI
 #
 # Constraint:
-#   Mean_Fn >= 15 N
+#   Mean_Fn >= 10 N
 #
 # FINAL DESIGN SELECTION:
 #   Minimum Distance to Utopia
