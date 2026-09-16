@@ -372,3 +372,5 @@ E → Rank 5
 ```
 
 These five highest-ranked Pareto-optimal finger geometries can subsequently be carried forward for simulation and experimental validation.
+
+For your reference, the parameterized SolidWorks model of the Fin-Ray finger design used in this work is provided in [`Rank2_solidwork_file.zip`](./Rank2_solidwork_file.zip).
